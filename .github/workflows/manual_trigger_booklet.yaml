@@ -33,15 +33,16 @@ jobs:
   build-pipeline:
     runs-on: ubuntu-latest
     env:
-      context: ${{toJson(github)}}
+      context: ${{toJson(github.event.inputs)}}
     steps:
       - name: Set env
         run: |
           echo "Env set to $context"
+          echo "Env set to ${{ toJson(github.event.inputs.run_env) }}"
       - name: Log stuff
         if: ${{ github.event.inputs.activate_logging }}
         run: |
-          echo "Log level:${{ github.event.inputs.log_level }}"
+          echo "Log level:${{ toJson(github.event.inputs.log_level) }}"
       - name: assign-tags
         run: |
-          echo "Run group: ${{ github.event.input.tags }}"
+          echo "Run group: ${{ toJson(github.event.inputs.tags) }}"
