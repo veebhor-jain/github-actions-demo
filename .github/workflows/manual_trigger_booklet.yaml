@@ -1,0 +1,47 @@
+name: Manual Triggers Extended
+
+on: 
+  workflow_dispatch:
+    inputs:
+      run-env:
+        description: Which env would you like to run on?
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+        default: dev
+      activate-logging:
+        description: Log internal processes?
+        required: true
+        type: boolean
+      log-level:
+        description: Log level
+        default: warning
+        type: choice
+        options:
+        - debug
+        - info
+        - warning
+        - error
+      tags:
+        description: 'Test scenario tags'
+        type: string
+
+jobs:
+  build-pipeline:
+    runs-on: ubuntu-latest
+    env:
+      MY_ENV: ${{ github.event.inputs.run_env }}
+    steps:
+      - name: Set env
+        run: |
+          echo "Env set to $MY_ENV"
+      - name: Log stuff
+        if: ${{ github.event.inputs.activate_logging }}
+        run: |
+          echo "Log level:${{ github.event.inputs.log_level }}"
+      - name: assign-tags
+        run: |
+          echo "Run group: ${{ github.event.input.tags }}"
