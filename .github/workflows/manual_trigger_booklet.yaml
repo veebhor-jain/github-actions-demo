@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: Set env
         run: |
-          echo "Env set to $MY_ENV"
+          echo "Env set to ${{MY_ENV}}"
       - name: Log stuff
         if: ${{ github.event.inputs.activate_logging }}
         run: |
