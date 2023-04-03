@@ -32,12 +32,10 @@ on:
 jobs:
   build-pipeline:
     runs-on: ubuntu-latest
-    env:
-      MY_ENV: github.event.inputs
     steps:
       - name: Set env
         run: |
-          echo "Env set to $MY_ENV"
+          echo "Env set to ${{  github.event.inputs.run_env }}"
       - name: Log stuff
         if: ${{ github.event.inputs.activate_logging }}
         run: |
