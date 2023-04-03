@@ -33,7 +33,7 @@ jobs:
   build-pipeline:
     runs-on: ubuntu-latest
     env:
-      MY_ENV: ${{ github.event }}
+      MY_ENV: github.event.inputs
     steps:
       - name: Set env
         run: |
